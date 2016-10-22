@@ -32,6 +32,11 @@ namespace SQL_数据库查看器
             sqlConnection = new SqlConnection("server=.\\SQLEXPRESS;uid=aobosir;pwd=123456;database=scott");
             sqlConnection.Open();
         }
+        public DB(string str)
+        {
+            sqlConnection = new SqlConnection(str);
+            sqlConnection.Open();         
+        }
 
         //单例化结束
 

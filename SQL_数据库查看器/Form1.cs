@@ -13,6 +13,7 @@ namespace SQL_数据库查看器
     public partial class Form1 : Form
     {
         DB db;
+        string ConnStr;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +23,11 @@ namespace SQL_数据库查看器
         public Form1(SignIn s){
             InitializeComponent();
             signin = s;
-            this.textBox1.Text = signin.textBox1.Text;
+            //this.textBox1.Text = signin.textBox1.Text;
+            ConnStr = @" Data Source= " + signin.textBox1.Text + 
+                ";user id=" + signin.textBox2.Text +
+                "; password =" + signin.textBox3.Text +
+                ";database=scott";
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -81,7 +86,8 @@ namespace SQL_数据库查看器
                 TreeNode root_node = new TreeNode();//建立节点
                 root_node.Text = "Test数据库";
                 treeView1.Nodes.Add(root_node);
-                db = DB.getInstance();//初始化数据库查询单例DB.cs
+                db = new DB(ConnStr);
+                //db = DB.getInstance();//初始化数据库查询单例DB.cs
                 DataTable table_name = db.getBySql("SELECT name FROM sysobjects WHERE (xtype = 'U')");//查询test数据库表有多少张表
                 for (int i = 0; i < table_name.Rows.Count; i++)//遍历查询出来的结果表（视图）
                 {
@@ -112,5 +118,6 @@ namespace SQL_数据库查看器
                 e.Cancel = true;  //取消关闭事件
             }
         }
+
     }
 }
