@@ -15,7 +15,7 @@ namespace SQL_数据库查看器
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new SignIn());
         }
     }
 }

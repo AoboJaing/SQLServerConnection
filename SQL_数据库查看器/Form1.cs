@@ -18,6 +18,13 @@ namespace SQL_数据库查看器
             InitializeComponent();
         }
 
+        SignIn signin;
+        public Form1(SignIn s){
+            InitializeComponent();
+            signin = s;
+            this.textBox1.Text = signin.textBox1.Text;
+        }
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
@@ -90,6 +97,19 @@ namespace SQL_数据库查看器
             {
                 MessageBox.Show(this.Text, "数据库出错！");
                 Environment.Exit(1);
+            }
+        }
+
+         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult.OK == MessageBox.Show("你确定要关闭应用程序吗？", "关闭提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+            {
+                this.FormClosing -= new FormClosingEventHandler(this.Form1_FormClosing);//为保证Application.Exit();时不再弹出提示，所以将FormClosing事件取消
+                Application.Exit();//退出整个应用程序
+            }
+            else
+            {
+                e.Cancel = true;  //取消关闭事件
             }
         }
     }
